@@ -52,6 +52,9 @@ class SensorStream(DataStream):
                     filter_list.append(f"temp:{parts[1]}")
         return filter_list
 
+    def get_stats(self) -> Dict[str, Union[str, int, float]]:
+        pass
+
 
 class TransactionStream(DataStream):
     def __init__(self, stream_id):
@@ -78,6 +81,20 @@ class TransactionStream(DataStream):
         else:
             return f"{count_op} operations, net flow: {net_flow} units"
 
+    def filter_data(self, data_batch, criteria=None) -> List:
+        filter_list = []
+        for item in data_batch:
+            if isinstance(item, str):
+                if item.startswith("sell") or item.startswith("buy"):
+                    parts = item.split(":")
+                    if len(parts) == 2 and criteria is not None and float(parts[1]) > criteria:
+                        filter_list.append(item)
+        return filter_list
+    
+    def get_stats(self) -> Dict[str, Union[str, int, float]]:
+        pass
+
+
 
 class EventStream(DataStream):
     def __init__(self, stream_id):
@@ -92,6 +109,13 @@ class EventStream(DataStream):
             if isinstance(item,str) and item == "error":
                 count_error += 1
         return f"{count_event} events, {count_error} error detected"
+    
+    def filter_data(self, data_batch, criteria=None) -> List:
+        filter_list = []
+        for item in data_batch:
+            if criteria is not None and item == criteria:
+                filter_list.append(item)
+        return filter_list
 
 
 def main():
