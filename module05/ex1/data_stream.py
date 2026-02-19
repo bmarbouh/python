@@ -7,6 +7,7 @@ from typing import Optional, Any, List, Union, Dict
 class DataStream(ABC):
     def __init__(self, stream_id):
         self.stream_id = stream_id
+        self.items_processed = 0
 
     @abstractmethod
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -18,7 +19,10 @@ class DataStream(ABC):
         pass
 
     def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        pass
+        return {
+            "id" : self.stream_id,
+            "processed" : self.items_processed
+        }
 
 
 class SensorStream(DataStream):
@@ -29,6 +33,7 @@ class SensorStream(DataStream):
         reading_count = 0
         avg = 0
         sam = 0
+        self.items_processed += len(data_batch)
         for item in data_batch:
             reading_count += 1
             if isinstance(item,str) and item.startswith("temp"):
@@ -48,12 +53,9 @@ class SensorStream(DataStream):
         for item in data_batch:
             if isinstance(item,str) and item.startswith("temp"):
                 parts = item.split(":")
-                if float(parts[1]) > criteria:
+                if criteria is not None and float(parts[1]) > criteria:
                     filter_list.append(f"temp:{parts[1]}")
         return filter_list
-
-    def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        pass
 
 
 class TransactionStream(DataStream):
@@ -65,6 +67,7 @@ class TransactionStream(DataStream):
         count_op = 0
         count_sell = 0
         count_buy = 0
+        self.items_processed += len(data_batch)
         for item in data_batch:
             count_op += 1
             if isinstance(item,str) and item.startswith("sell"):
@@ -90,10 +93,6 @@ class TransactionStream(DataStream):
                     if len(parts) == 2 and criteria is not None and float(parts[1]) > criteria:
                         filter_list.append(item)
         return filter_list
-    
-    def get_stats(self) -> Dict[str, Union[str, int, float]]:
-        pass
-
 
 
 class EventStream(DataStream):
@@ -102,6 +101,7 @@ class EventStream(DataStream):
 
 
     def process_batch(self, data_batch: List[Any]) -> str:
+        self.items_processed += len(data_batch)
         count_event = 0
         count_error = 0
         for item in data_batch:
@@ -142,7 +142,30 @@ def main():
     print("=== Polymorphic Stream Processing ===")
     print("Processing mixed stream types through unified interface...")
     print("")
-    
+    stream = [sensor, transiction, event]
+    data_Batch = [
+        ["temp:25.5", "temp:30.0"],
+        ["buy:500", "sell:100", "buy:200"],
+        ["login", "error", "logout"]
+    ]
+    i = 0
+    while i < len(stream):
+        current_stream = stream[i]
+        current_data = data_Batch[i]
+        if isinstance(current_stream, SensorStream):
+            print(f"- Sensor data: {(current_stream.process_batch(current_data)).split(",")[0]}")
+        elif isinstance(current_stream, TransactionStream):
+            print(f"- Transaction data: {(current_stream.process_batch(current_data)).split(",")[0]} processed")
+        elif isinstance(current_stream, EventStream):
+            print(f"- Event data: {(current_stream.process_batch(current_data)).split(",")[0]} processed")
+        i += 1
+    print("")
+    print(f"Stream filtering active: High-priority data only")
+    high_temp = sensor.filter_data(data_Batch[0],25.0)
+    high_trans = transiction.filter_data(data_Batch[1],400)
+    print(f"Filtered results: {len(high_temp)} critical sensor alerts, {len(high_trans)} large transaction")
+    print("")
+    print("All streams processed successfully. Nexus throughput optimal.")
 
 
 if __name__ == "__main__":
