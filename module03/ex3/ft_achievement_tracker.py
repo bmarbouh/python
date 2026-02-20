@@ -48,6 +48,7 @@ data = {
         "boss_hunter",
         "first_blood",
         "explorer",
+        "explorer",
         "first_blood",
         "boss_hunter",
     ],
