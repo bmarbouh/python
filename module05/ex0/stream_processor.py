@@ -25,7 +25,7 @@ class NumericProcessor(DataProcessor):
         total = sum(data_list)
         avg = total / count if count > 0 else 0.0
         return f"Processed {count} numeric values, sum={total}, avg={avg}"
-    
+
     def validate(self, data: Any) -> bool:
         data_list = list(data)
         try:
@@ -34,34 +34,35 @@ class NumericProcessor(DataProcessor):
             return True
         except:
             return False
+
     def format_output(self, result: str) -> str:
         return f"Output: {result}"
 
 
 class TextProcessor(DataProcessor):
-    def process(self, data):
+    def process(self, data: Any) -> str:
         str_data = str(data)
         size = len(str_data)
         count_word = len(str_data.split(" "))
         return f"Processed text: {size} characters, {count_word} words"
 
-    def validate(self, data):
-        if isinstance(data,str):
+    def validate(self, data: Any) -> bool:
+        if isinstance(data, str):
             return True
         else:
             return False
-    def format_output(self, result):
+
+    def format_output(self, result: str) -> str:
         return f"Output: {result}"
 
 
 class LogProcessor(DataProcessor):
-    def process(self, data):
+    def process(self, data: Any) -> str:
         log_type = str(data).split(":")
         return f"Output: [ALERT] {log_type[0]} level detected: {log_type[1]}"
 
-
-    def validate(self, data):
-        if not isinstance(data,str):
+    def validate(self, data: Any) -> bool:
+        if not isinstance(data, str):
             return False
         avilable_log = ["INFO", "ERROR", "DEBUG", "WARNING", "ALERT"]
         for log in avilable_log:
@@ -69,17 +70,15 @@ class LogProcessor(DataProcessor):
                 return True
         return False
 
-    def format_output(self, result):
-        return f"Output: {result}" 
+    def format_output(self, result: str) -> str:
+        return f"Output: {result}"
 
 
-
-
-def main():
+def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
     print("")
-    #Numeric Handle
-    data_num = [1,2,3,4,5]
+    # Numeric Handle
+    data_num = [1, 2, 3, 4, 5]
     num = NumericProcessor()
     print("Initializing Numeric Processor...")
     print(f"Processing data: {data_num}")
@@ -89,7 +88,7 @@ def main():
     else:
         print("Validition: Insucssusfull Validte")
         print(num.format_output("Not availible"))
-    #Text Handle
+    # Text Handle
     print("")
     print("Initializing Text Processor...")
     data_text = "Hello Nexus World"
@@ -129,8 +128,5 @@ def main():
     print("Foundation systems online. Nexus ready for advanced streams.")
 
 
-
-
 if __name__ == "__main__":
     main()
-
