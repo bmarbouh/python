@@ -175,13 +175,11 @@ def main():
         ["buy:100", "sell:150", "buy:75", "sell:10"],
         ["login", "error", "logout"],
     ]
-    print(f"- Sensor data: {sensor.process_batch(data_batch[0]).split(",")[0]}")
+    print(f"- Sensor data: {sensor.process_batch(data_batch[0]).split(',')[0]}")
     print(
-        f"- Transaction data: {transiction.process_batch(data_batch[1]).split(",")[0]} processed"
+        f"- Transaction data: {transiction.process_batch(data_batch[1]).split(',')[0]} processed"
     )
-    print(
-        f"- Event data: {transiction.process_batch(data_batch).split(",")[0]} processed"
-    )
+    print(f"- Event data: {event.process_batch(data_batch[2]).split(',')[0]} processed")
     print("")
     print("Stream filtering active: High-priority data only")
     critical = sensor.filter_data(["temp:32.5", "temp: 30.5", "temp: 20"], "temp:30")

@@ -36,7 +36,7 @@ class ProcessingPipeline(ABC):
         self.stages = []
 
     def add_stage(self, stage: ProcessingStage):
-        self.add_stage(stage)
+        self.stages.append(stage)
 
     @abstractmethod
     def process(self, data: Any) -> Any:
@@ -79,7 +79,7 @@ class NexusManager:
         self.piplens = []
 
     def add_pipline(self, pipline: ProcessingPipeline):
-        pass
+        self.piplens.append(pipline)
 
     def process_data(self, Data: Any):
         pass
@@ -90,11 +90,16 @@ def main() -> None:
     print("Pipeline capacity: 1000 streams/second")
     print("")
     print("Creating Data Processing Pipeline...")
-    data = [
+    data = {
         "JSON" :"sensor: temp, value: 23.5, unit: C",
         "CVS" :"user,action,timestamp",
         "stream" :"Real-time sensor stream"
-    ]
+    }
+    manager = NexusManager()
+    manager.add_pipline(JSONAdapter())
+    manager.add_pipline(CSVAdapter())
+    manager.add_pipline(StreamAdapter())
+
 
 
 if __name__ == "__main__":
