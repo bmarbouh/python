@@ -63,7 +63,7 @@ class OutputStage:
                 return f"{actions}"
             elif isinstance(org_data, list):
                 readings = sum(1 for process in org_data
-                               if isinstance(process, int))
+            if isinstance(process, int))
                 return f"{readings}"
         raise ValueError("Output failed")
 
