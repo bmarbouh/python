@@ -22,7 +22,7 @@ class DataStream(ABC):
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -36,11 +36,14 @@ class SensorStream(DataStream):
                     try:
                         sum_count += float(part[1])
                         avg += 1
-                    except:
+                    except Exception:
                         print("sensor Error: Erro while processing")
             count_reading += 1
         if avg > 0:
-            return f"{count_reading} readings processed, avg temp: {sum_count / avg}°C"
+            return (
+                f"{count_reading} readings processed,"
+                f" avg temp: {sum_count / avg}°C"
+                )
         else:
             return f"{count_reading} readings processed, avg temp: 0.0°C"
 
@@ -57,13 +60,13 @@ class SensorStream(DataStream):
                 try:
                     if part[0] == cr[0] and float(part[1]) > float(cr[1]):
                         filter_list.append(item)
-                except:
+                except Exception:
                     print("error while filtring sensor data")
         return filter_list
 
 
 class TransactionStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -76,15 +79,18 @@ class TransactionStream(DataStream):
                 if part[0] == "sell":
                     try:
                         sell_count += int(part[1])
-                    except:
+                    except Exception:
                         print("Transiction Error: data incorrect")
                 elif part[0] == "buy":
                     try:
                         buy_count += int(part[1])
-                    except:
+                    except Exception:
                         print("Transiction Error: data incorrect")
             count_reading += 1
-        return f"{count_reading} operations, net flow: +{buy_count - sell_count} units"
+        return (
+            f"{count_reading} operations,"
+            f" net flow: +{buy_count - sell_count} units"
+            )
 
     def filter_data(
         self, data_batch: List[Any], criteria: Optional[str] = None
@@ -100,13 +106,13 @@ class TransactionStream(DataStream):
                     try:
                         if float(part[1]) > float(cr[1]):
                             filter_list.append(item)
-                    except:
+                    except Exception:
                         print("error while filtring transiction data")
         return filter_list
 
 
 class EventStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
 
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -120,13 +126,13 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.streams = []
 
-    def add_streams(self, stream):
+    def add_streams(self, stream: DataStream) -> None:
         self.streams.append(stream)
 
-    def process_streams(self, data_batch: List[Any]):
+    def process_streams(self, data_batch: List[Any]) -> None:
         i = 0
         while i < len(self.streams):
             st = self.streams[i]
@@ -152,7 +158,7 @@ class StreamProcessor:
             i += 1
 
 
-def main():
+def main() -> None:
     data = [
         ["temp:22.5", "humidity:65", "pressure:1013"],
         ["buy:100", "sell:150", "buy:75"],
@@ -175,19 +181,28 @@ def main():
         ["buy:100", "sell:150", "buy:75", "sell:10"],
         ["login", "error", "logout"],
     ]
-    print(f"- Sensor data: {sensor.process_batch(data_batch[0]).split(',')[0]}")
     print(
-        f"- Transaction data: {transiction.process_batch(data_batch[1]).split(',')[0]} processed"
+        f"- Sensor data:"
+        f"{sensor.process_batch(data_batch[0]).split(',')[0]}"
+        )
+    print(
+        f"- Transaction data: "
+        f"{transiction.process_batch(data_batch[1]).split(',')[0]} processed"
     )
-    print(f"- Event data: {event.process_batch(data_batch[2]).split(',')[0]} processed")
+    print(
+        f"- Event data: "
+        f"{event.process_batch(data_batch[2]).split(',')[0]} processed"
+        )
     print("")
     print("Stream filtering active: High-priority data only")
-    critical = sensor.filter_data(["temp:32.5", "temp: 30.5", "temp: 20"], "temp:30")
+    critical_data = ["temp:32.5", "temp: 30.5", "temp: 20"]
+    critical = sensor.filter_data(critical_data, "temp:30")
     large_transiction = transiction.filter_data(
         ["buy:120", "sell:150", "buy:175", "sell:105"], "buy:150"
     )
     print(
-        f"Filtered results: {len(critical)} critical sensor alerts, {len(large_transiction)} large transaction"
+        f"Filtered results: {len(critical)} critical sensor alerts, "
+        f"{len(large_transiction)} large transaction"
     )
     print("")
     print("All streams processed successfully. Nexus throughput optimal.")

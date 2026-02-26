@@ -32,7 +32,7 @@ class NumericProcessor(DataProcessor):
             for i in data_list:
                 int(i)
             return True
-        except:
+        except Exception:
             return False
 
     def format_output(self, result: str) -> str:
