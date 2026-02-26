@@ -74,11 +74,12 @@ class JSONAdapter(ProcessingPipeline):
         self.pipeline_id = pipeline_id
 
     def process(self, data: Any) -> Any:
-        print(f"Input: {data}")
         try:
+            data_proc = data
             for stage in self.stages:
-                data = stage.process(data)
-            return data
+                data_proc = stage.process(data_proc)
+            print(f"Input: {data}")
+            return data_proc
         except Exception as e:
             return f"JSON Error Deticted : {e}"
 
@@ -89,11 +90,12 @@ class CSVAdapter(ProcessingPipeline):
         self.pipeline_id = pipeline_id
 
     def process(self, data: Any) -> Any:
-        print(f"Input: {data}")
         try:
+            data_proc = data
             for stage in self.stages:
-                data = stage.process(data)
-            return data
+                data_proc = stage.process(data_proc)
+            print(f"Input: {data}")
+            return data_proc
         except Exception as e:
             return f"CVS Error Deticted : {e}"
 
@@ -104,11 +106,12 @@ class StreamAdapter(ProcessingPipeline):
         self.pipeline_id = pipeline_id
 
     def process(self, data: Any) -> Any:
-        print(f"Input: {data}")
         try:
+            data_proc = data
             for stage in self.stages:
-                data = stage.process(data)
-            return data
+                data_proc = stage.process(data_proc)
+            print(f"Input: {data}")
+            return data_proc
         except Exception:
             raise ValueError("Error detected in Stage 2: Invalid data format")
 
@@ -184,7 +187,7 @@ def main() -> None:
     error_test.add_stage(TransformStage())
     error_test.add_stage(OutputStage())
     try:
-        error_test.process({"type":"error"})
+        error_test.process((1,2))
     except ValueError as v:
         print(f"{v}")
 
