@@ -63,7 +63,7 @@ class OutputStage:
             data_avg = sum([item for item in data["data"]])
             return (
                 f"Stream summary: {len(data['data'])} readings, avg:"
-                f" {data_avg / len(data["data"]):.2f}°C"
+                f" {data_avg / len(data['data']):.2f}°C"
             )
         return "Erorr deticted in stage 3"
 
