@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-from typing import Protocol, Any, runtime_checkable
+from typing import Protocol, Any
 from abc import ABC, abstractmethod
 
 
-@runtime_checkable
 class ProcessingStage(Protocol):
     def process(self, data: Any) -> Any: ...
 
