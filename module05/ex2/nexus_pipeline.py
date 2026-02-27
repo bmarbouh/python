@@ -4,7 +4,8 @@ from abc import ABC, abstractmethod
 
 
 class ProcessingStage(Protocol):
-    def process(self, data: Any) -> Any: ...
+    def process(self, data: Any) -> Any: 
+        ...
 
 
 class InputStage:
@@ -182,7 +183,7 @@ def main() -> None:
     print("")
     print("=== Pipeline Chaining Demo ===")
     print("Pipeline A -> Pipeline B -> Pipeline C")
-    print("Data flow: Raw -> Processed -> Analyzed -> Storedi\n")
+    print("Data flow: Raw -> Processed -> Analyzed -> Stored\n")
     print(
         f"Chain result: {manager.processed_count} "
         f"records processed through {len(manager.piplens)}-stage pipeline"
