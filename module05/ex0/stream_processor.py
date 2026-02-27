@@ -59,7 +59,7 @@ class TextProcessor(DataProcessor):
 class LogProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         log_type = str(data).split(":")
-        return f"Output: [ALERT] {log_type[0]} level detected: {log_type[1]}"
+        return f"[ALERT] {log_type[0]} level detected: {log_type[1]}"
 
     def validate(self, data: Any) -> bool:
         if not isinstance(data, str):
