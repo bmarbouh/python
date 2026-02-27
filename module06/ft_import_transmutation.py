@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import alchemy.elements
 from alchemy.elements import create_water
 from alchemy.potions import healing_potion as heal, strength_potion
