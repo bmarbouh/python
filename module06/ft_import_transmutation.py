@@ -4,6 +4,7 @@ from alchemy.elements import create_water
 from alchemy.potions import healing_potion as heal, strength_potion
 from alchemy.elements import create_fire, create_earth
 
+
 def main():
     print("=== Import Transmutation Mastery ===")
     print("")
@@ -13,7 +14,7 @@ def main():
     print("Method 2 - Specific function import:")
     print(f"create_water(): {create_water()}")
     print("")
-    print(f"Method 3 - Aliased import:")
+    print("Method 3 - Aliased import:")
     print(f"heal(): {heal()}")
     print("")
     print("Method 4 - Multiple imports:")
@@ -22,6 +23,7 @@ def main():
     print(f"strength_potion(): {strength_potion()}")
     print("")
     print("All import transmutation methods mastered!")
+
 
 if __name__ == "__main__":
     main()
