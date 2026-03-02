@@ -3,45 +3,45 @@ import random
 
 class Deck:
     def __init__(self):
-        self.cards = []
+        self.card_list = []
     
     def add_card(self, card: Card) -> None:
-        self.cards.append(card)
+        self.card_list.append(card)
     
     def remove_card(self, card_name: str) -> bool:
-        for card in self.cards:
-            if card_name == card.name:
-                self.cards.remove(card)
+        for item in self.card_list:
+            if item.name == card_name:
+                self.card_list.remove(item)
                 return True
         return False
     
     def shuffle(self) -> None:
-        random.shuffle(self.cards)
+        random.shuffle(self.card_list)
     
     def draw_card(self) -> Card:
-        return self.cards.pop(0)
+        return self.card_list.pop(0)
     
     def get_deck_stats(self) -> dict:
-        artifact_count = 0
-        creature_count = 0
-        spell_count = 0 
+        creatures = 0
+        spells = 0
+        artifacts = 0
         total_cost = 0
-        for card in self.cards:
-            if card.type.lower() == "creature":
-                creature_count += 1
-                total_cost += card.cost
-            elif card.type.lower() == "spell":
-                spell_count += 1
-                total_cost += card.cost
-            elif card.type.lower() == "artifact":
-                artifact_count += 1
-                total_cost += card.cost
-                
+        
+        for item in self.card_list:
+            if item.type.lower() == 'creatures':
+                creatures += 1
+                total_cost += item.cost
+            elif item.type.lower() == 'spells':
+                spells += 1
+                total_cost += item.cost
+            elif item.type.lower() == 'artifacts':
+                artifacts += 1
+                total_cost += item.cost
+            avg_cost = total_cost / len(self.card_list)
         return {
-            "total_card": len(self.cards),
-            "creatures": creature_count,
-            "spells": spell_count,
-            "artifact": artifact_count,
-            "avg_cost":round((total_cost / len(self.cards)),1)
+            'total_cards': len(self.card_list),
+            'creatures': creatures,
+            'spells': spells,
+            'artifacts': artifacts,
+            'avg_cost': round(avg_cost, 1)
         }
-    
