@@ -1,0 +1,43 @@
+from ex4.TournamentCard import TournamentCard
+from typing import Dict
+import random
+
+class TournamentPlatform:
+    def __init__(self): 
+        self.registre: Dict[str, TournamentCard] = {}
+        self.matches = 0
+        
+    def register_card(self, card: TournamentCard):
+        cid = card.id
+        if cid in self.registre:
+            raise ValueError("Carde already exsite")
+        self.registre[cid] = card
+        return cid
+    
+    def create_match(self, card1_id: str, card2_id: str):
+        c1 = self.registre[card1_id]
+        c2 = self.registre[card2_id]
+        
+        score1 = c1.attack_power + random.randint(0, c1.defense)
+        score2 = c2.attack_power + random.randint(0, c2.defense)
+        
+        if score1 > score2:
+            winner, loser = card1_id, card2_id
+        else:
+            winner, loser = card2_id, card1_id
+        self.registre[winner].update_wins(1)
+        self.registre[loser].update_losses(1)
+        self.matches += 1
+        
+        return {
+            "winner" : winner,
+            "loser": loser,
+            "winner_rating" : self.registre[winner].calculate_rating(),
+            "loser_rating": self.registre[loser].calculate_rating()
+        }
+    
+    def get_leaderboard(self):
+        pass
+    
+    def generate_tournament_report(self):
+        pass
