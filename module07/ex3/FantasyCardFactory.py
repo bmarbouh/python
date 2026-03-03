@@ -5,7 +5,7 @@ from ex0.Card import Card, RARITY
 from ex3.CardFactory import CardFactory
 import random
 
-class FantasyFactory(CardFactory):
+class FantasyCardFactory(CardFactory):
     def create_creature(self, name_or_power) -> Card:
         data = {
             'dragon': {'name':"Fire Dragon",'cost': 5,'rarity' :RARITY.LEGENDARY.value,'attack': 7,'health': 5},
