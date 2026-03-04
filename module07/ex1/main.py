@@ -19,7 +19,7 @@ def main() -> None:
     for _ in deck.card_list[:]:
         draw_card = deck.draw_card()
         print(f'Draw: {draw_card.name} ({draw_card.__class__.__name__})')
-        print(f'Play result: {draw_card.play(game_state)}')
+        print(f'Play result: {draw_card.play(game_state)}\n')
     print('\nPolymorphism in action: Same interface, different card behaviors!')
 
 if __name__ == "__main__":
