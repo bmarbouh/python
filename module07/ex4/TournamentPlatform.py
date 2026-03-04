@@ -37,7 +37,26 @@ class TournamentPlatform:
         }
     
     def get_leaderboard(self):
-        pass
+        ranked = sorted(self.registre.items(), key=lambda x: x[1].calculate_rating(), reverse=True)
+        lines = []
+        for i, (cid, card) in enumerate(ranked, 1):
+            info = card.get_rank_info()
+            lines.append(
+                f"{i}. {card.name} - Rating:"
+                f"{info['rating']} {info['record']}"
+                )
+        return lines
     
     def generate_tournament_report(self):
-        pass
+        avg = 0
+        s = 0
+        for c in self.registre.values():
+            s += c.calculate_rating()
+            avg += 1
+        avg = s / avg
+        return{
+            'total_cards': len(self.registre),
+            'matches_played': self.matches,
+            'avg_rating' : int(avg),
+            'platform_status': 'active'
+        }

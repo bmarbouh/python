@@ -3,11 +3,10 @@ from ex0.Card import Card
 from ex2.Combatable import Combatable
 
 class TournamentCard(Card, Combatable, Rankable):
-    def __init__(self, name, cost, rarity, attack_power, defense, rating, id):
+    def __init__(self, id, name, cost, rarity, attack_power, defense, rating):
         super().__init__(name, cost, rarity)
         self.attack_power = attack_power
         self.defense = defense
-        self.rating = rating
         self.id = id
         
         self.wins = 0
