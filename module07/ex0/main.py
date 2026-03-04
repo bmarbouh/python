@@ -9,14 +9,17 @@ def main() -> None:
     print(creature.get_card_info())
     print('Playing Fire Dragon with 6 mana available:')
     state = {"mana": 6}
-    print(f'Playable: {creature.is_playable(state.get('mana'))}')
-    print('\nPlaying Fire Dragon with 6 mana available:')
-    print(f'Play result: {creature.play(state)}')
-    print(f"\nFire Dragon attacks Goblin Warrior:")
-    print(f"Attack result: {creature.attack_target('Goblin Warrior')}")
-    print(f'\nTesting insufficient mana ({state.get('mana')} available):')
-    print(f"Playble: {creature.is_playable(state.get('mana'))}")
-    print('\nAbstract pattern successfully demonstrated!')
+    try:
+        print(f'Playable: {creature.is_playable(state.get('mana'))}')
+        print('\nPlaying Fire Dragon with 6 mana available:')
+        print(f'Play result: {creature.play(state)}')
+        print(f"\nFire Dragon attacks Goblin Warrior:")
+        print(f"Attack result: {creature.attack_target('Goblin Warrior')}")
+        print(f'\nTesting insufficient mana ({state.get('mana')} available):')
+        print(f"Playble: {creature.is_playable(state.get('mana'))}")
+        print('\nAbstract pattern successfully demonstrated!')
+    except Exception as v:
+        print(f"Error Detected {v}")
 
 if __name__ == "__main__":
     main()
