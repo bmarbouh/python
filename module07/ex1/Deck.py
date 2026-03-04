@@ -2,7 +2,7 @@ from ex0.Card import Card
 import random
 
 class Deck:
-    def __init__(self):
+    def __init__(self) -> None:
         self.card_list = []
     
     def add_card(self, card: Card) -> None:

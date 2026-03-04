@@ -3,7 +3,7 @@ from ex0.CreatureCard import CreatureCard
 from ex1.SpellCard import SpellCard
 from ex0.Card import RARITY
 from ex1.Deck import Deck
-def main():
+def main() -> None:
     print('\n=== DataDeck Deck Builder ===\n')
     creature =  CreatureCard("Fire Dragon", 5, RARITY.LEGENDARY.value, 7, 5)
     spell = SpellCard("Lightning Bolt", 3, RARITY.COMMON.value, 'Deal 3 damage to target')

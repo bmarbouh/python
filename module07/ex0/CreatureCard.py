@@ -1,7 +1,7 @@
 from ex0.Card import Card
 
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int):
+    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int) -> None:
         self.name = name
         self.cost = cost
         self.rarity = rarity

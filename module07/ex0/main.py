@@ -1,7 +1,7 @@
 from ex0.CreatureCard import CreatureCard
 from ex0.Card import RARITY
 
-def main():
+def main() -> None:
     print("\n=== DataDeck Card Foundation ===\n")
     print('Testing Abstract Base Class Design:\n')
     creature = CreatureCard('Fire Dragon', 5, RARITY.LEGENDARY.value, 7, 5)
@@ -17,5 +17,6 @@ def main():
     print(f'\nTesting insufficient mana ({state.get('mana')} available):')
     print(f"Playble: {creature.is_playable(state.get('mana'))}")
     print('\nAbstract pattern successfully demonstrated!')
+
 if __name__ == "__main__":
     main()

@@ -1,12 +1,12 @@
 from ex0.Card import Card
 
 class ArtifactCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, durability: int, effect: str):
+    def __init__(self, name: str, cost: int, rarity: str, durability: int, effect: str) -> None:
         super().__init__(name, cost, rarity)
         self.durability = durability
         self.effect = effect
         self.type = 'Artifacts'
-    def play(self, game_state):
+    def play(self, game_state) -> dict:
         if not self.is_playable(game_state.get('mana')):
             return {
                 'error': "insufficient mana!"
