@@ -4,7 +4,14 @@ from ex0.Card import Card
 
 
 class EliteCard(Card, Magical, Combatable):
-    def __init__(self, name: str, cost: int, rarity: str, health: int, attack_damage: int) -> None:
+    def __init__(
+        self,
+        name: str,
+        cost: int,
+        rarity: str,
+        health: int,
+        attack_damage: int
+    ) -> None:
         super().__init__(name, cost, rarity)
         self.health = health
         self.attack_damage = attack_damage if attack_damage >= 0 else 0
@@ -33,7 +40,6 @@ class EliteCard(Card, Magical, Combatable):
         target.health -= self.attack_damage
         if target.health < 0:
             target.health = 0
-        
         return {
             'attacker': self.name,
             'target': target.name,

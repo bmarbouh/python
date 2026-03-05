@@ -1,6 +1,7 @@
 from ex0.CreatureCard import CreatureCard
 from ex0.Card import RARITY
 
+
 def main() -> None:
     print("\n=== DataDeck Card Foundation ===\n")
     print('Testing Abstract Base Class Design:\n')
@@ -13,13 +14,14 @@ def main() -> None:
         print(f'Playable: {creature.is_playable(state.get('mana'))}')
         print('\nPlaying Fire Dragon with 6 mana available:')
         print(f'Play result: {creature.play(state)}')
-        print(f"\nFire Dragon attacks Goblin Warrior:")
+        print("\nFire Dragon attacks Goblin Warrior:")
         print(f"Attack result: {creature.attack_target('Goblin Warrior')}")
         print(f'\nTesting insufficient mana ({state.get('mana')} available):')
         print(f"Playble: {creature.is_playable(state.get('mana'))}")
         print('\nAbstract pattern successfully demonstrated!')
     except Exception as v:
         print(f"Error Detected {v}")
+
 
 if __name__ == "__main__":
     main()

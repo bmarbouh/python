@@ -1,7 +1,15 @@
 from ex0.Card import Card
 
+
 class CreatureCard(Card):
-    def __init__(self, name: str, cost: int, rarity: str, attack: int, health: int) -> None:
+    def __init__(
+        self,
+        name: str,
+        cost: int,
+        rarity: str,
+        attack: int,
+        health: int
+    ) -> None:
         self.name = name
         self.cost = cost
         self.rarity = rarity
@@ -11,7 +19,7 @@ class CreatureCard(Card):
             self.health = health
         else:
             raise ValueError("must be entre a valid health / attack values")
-        
+
     def play(self, game_state: dict) -> dict:
         if not self.is_playable(game_state.get('mana')):
             return {
@@ -23,17 +31,17 @@ class CreatureCard(Card):
             'mana_used': self.cost,
             'effect': 'Creature summoned to battlefield'
         }
-    
+
     def attack_target(self, target: str) -> dict:
         if not target:
             raise ValueError("error target cannot be empty or none")
         return {
-            'attacker':self.name,
+            'attacker': self.name,
             'target': target,
             'damage_dealt': 7,
             'combat_resolved': True
         }
-    
+
     def get_card_info(self) -> dict:
         return {
             "name": self.name,

@@ -1,13 +1,18 @@
 from ex4.TournamentPlatform import TournamentPlatform
 from ex4.TournamentCard import TournamentCard
 
+
 def main() -> None:
     print('\n=== DataDeck Tournament Platform ===\n')
     print('\nRegistering Tournament Cards...\n')
     try:
         platform = TournamentPlatform()
-        dragon = TournamentCard("dragon_001", "Fire Dragon", 5, "Legendary", 7, 3, rating=1200)
-        wizard = TournamentCard("wizard_001", "Ice Wizard", 4, "Epic", 5, 4, rating=1150)
+        dragon = TournamentCard(
+            "dragon_001", "Fire Dragon", 5, "Legendary", 7, 3, rating=1200
+        )
+        wizard = TournamentCard(
+            "wizard_001", "Ice Wizard", 4, "Epic", 5, 4, rating=1150
+        )
         id1 = platform.register_card(dragon)
         id2 = platform.register_card(wizard)
         for cid, card in [(id1, dragon), (id2, wizard)]:
@@ -32,4 +37,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -1,32 +1,32 @@
 from ex0.Card import Card
 import random
 
+
 class Deck:
     def __init__(self) -> None:
         self.card_list = []
-    
+
     def add_card(self, card: Card) -> None:
         self.card_list.append(card)
-    
+
     def remove_card(self, card_name: str) -> bool:
         for item in self.card_list:
             if item.name == card_name:
                 self.card_list.remove(item)
                 return True
         return False
-    
+
     def shuffle(self) -> None:
         random.shuffle(self.card_list)
-    
+
     def draw_card(self) -> Card:
         return self.card_list.pop(0)
-    
+
     def get_deck_stats(self) -> dict:
         creatures = 0
         spells = 0
         artifacts = 0
         total_cost = 0
-        
         for item in self.card_list:
             if item.type.lower() == 'creatures':
                 creatures += 1

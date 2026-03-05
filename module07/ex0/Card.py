@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 
+
 class RARITY(Enum):
     LEGENDARY = "Legendary"
     COMMON = "Common"
@@ -14,14 +15,14 @@ class Card(ABC):
         self.name = name
         self.cost = cost
         self.rarity = rarity
-    
+
     @abstractmethod
     def play(self, game_state: dict) -> dict:
         pass
-    
+
     def get_card_info(self) -> dict:
         pass
-    
+
     def is_playable(self, available_mana: int) -> bool:
         if isinstance(available_mana, int) and available_mana >= 0:
             return self.cost <= available_mana
