@@ -4,7 +4,7 @@ from ex0.Card import Card
 
 
 class EliteCard(Card, Magical, Combatable):
-    def __init__(self, name, cost, rarity, health, attack_damage):
+    def __init__(self, name: str, cost: int, rarity: str, health: int, attack_damage: int) -> None:
         super().__init__(name, cost, rarity)
         self.health = health
         self.attack_damage = attack_damage if attack_damage >= 0 else 0
@@ -27,7 +27,7 @@ class EliteCard(Card, Magical, Combatable):
             ),
         }
 
-    def attack(self, target) -> dict:
+    def attack(self, target: Card) -> dict:
         if not self.is_playable(self.game_state.get("mana")):
             return {"error": "insufficient mana!"}
         target.health -= self.attack_damage
@@ -69,7 +69,7 @@ class EliteCard(Card, Magical, Combatable):
             'mana': self.game_state.get("mana"),
         }
 
-    def defend(self, incoming_damage: int):
+    def defend(self, incoming_damage: int) -> dict:
         dmg = incoming_damage - self.shield
         damage_taken = max(dmg, 0)
         self.health -= dmg

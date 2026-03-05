@@ -6,7 +6,7 @@ from ex3.CardFactory import CardFactory
 import random
 
 class FantasyCardFactory(CardFactory):
-    def create_creature(self, name_or_power) -> Card:
+    def create_creature(self, name_or_power: str) -> Card:
         data = {
             'dragon': {'name':"Fire Dragon",'cost': 5,'rarity' :RARITY.LEGENDARY.value,'attack': 7,'health': 5},
             'goblin': {'name':'Goblin Warrior','cost': 2,'rarity' : RARITY.COMMON.value,'attack': 3,'health': 2}
@@ -17,7 +17,7 @@ class FantasyCardFactory(CardFactory):
             return player
         raise ValueError("ERROR: creat creature card faild !!")
 
-    def create_spell(self, name_or_power) -> Card:
+    def create_spell(self, name_or_power: str) -> Card:
         data = {
             'fireball': {'name':'Lightning Bolt','cost': 3, 'rarity':RARITY.COMMON.value,'effect_type': 'damage'},
         }
@@ -28,7 +28,7 @@ class FantasyCardFactory(CardFactory):
             return player
         raise ValueError("ERROR: creat spell card faild !!")
     
-    def create_artifact(self, name_or_power) -> Card:
+    def create_artifact(self, name_or_power: str) -> Card:
         data = {
             'mana_ring': {'name': 'Mana Crystal','cost': 2,'rarity': RARITY.RARE.value,'durability': 5,'effect': '+1 mana per turn'},
         }

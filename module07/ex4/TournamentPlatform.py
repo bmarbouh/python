@@ -3,7 +3,7 @@ from typing import Dict
 import random
 
 class TournamentPlatform:
-    def __init__(self): 
+    def __init__(self) -> None: 
         self.registre: Dict[str, TournamentCard] = {}
         self.matches = 0
         

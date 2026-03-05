@@ -6,7 +6,7 @@ class ArtifactCard(Card):
         self.durability = durability
         self.effect = effect
         self.type = 'Artifacts'
-    def play(self, game_state) -> dict:
+    def play(self, game_state: dict) -> dict:
         if not self.is_playable(game_state.get('mana')):
             return {
                 'error': "insufficient mana!"

@@ -5,9 +5,12 @@ class CreatureCard(Card):
         self.name = name
         self.cost = cost
         self.rarity = rarity
-        self.attack = attack
-        self.health = health
         self.type = 'Creatures'
+        if attack >= 0 and health >= 0:
+            self.attack = attack
+            self.health = health
+        else:
+            raise ValueError("must be entre a valid health / attack values")
         
     def play(self, game_state: dict) -> dict:
         if not self.is_playable(game_state.get('mana')):
@@ -21,7 +24,7 @@ class CreatureCard(Card):
             'effect': 'Creature summoned to battlefield'
         }
     
-    def attack_target(self, target) -> dict:
+    def attack_target(self, target: str) -> dict:
         if not target:
             raise ValueError("error target cannot be empty or none")
         return {
