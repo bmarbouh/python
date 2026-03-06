@@ -5,12 +5,12 @@ from ex0.Card import RARITY
 def main() -> None:
     print("\n=== DataDeck Card Foundation ===\n")
     print('Testing Abstract Base Class Design:\n')
-    creature = CreatureCard('Fire Dragon', 5, RARITY.LEGENDARY.value, 7, 5)
-    print("CreatureCard Info:")
-    print(creature.get_card_info())
-    print('Playing Fire Dragon with 6 mana available:')
-    state = {"mana": 6}
     try:
+        creature = CreatureCard('Fire Dragon', 5, RARITY.LEGENDARY.value, 7, 5)
+        print("CreatureCard Info:")
+        print(creature.get_card_info())
+        print('Playing Fire Dragon with 6 mana available:')
+        state = {"mana": 6}
         print(f'Playable: {creature.is_playable(state.get('mana'))}')
         print('\nPlaying Fire Dragon with 6 mana available:')
         print(f'Play result: {creature.play(state)}')

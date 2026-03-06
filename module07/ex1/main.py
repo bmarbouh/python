@@ -7,15 +7,16 @@ from ex1.Deck import Deck
 
 def main() -> None:
     print('\n=== DataDeck Deck Builder ===\n')
-    creature = CreatureCard("Fire Dragon", 5, RARITY.LEGENDARY.value, 7, 5)
-    spell = SpellCard(
-        "Lightning Bolt", 3, RARITY.COMMON.value, 'Deal 3 damage to target'
-    )
-    artifact = ArtifactCard(
-        "Mana Crystal", 2, RARITY.EPIC.value, 7, "Permanent +1 mana per turn"
-    )
-    game_state = {'mana': 10}
     try:
+        creature = CreatureCard("Fire Dragon", 5, RARITY.LEGENDARY.value, 7, 5)
+        spell = SpellCard(
+            "Lightning Bolt", 3, RARITY.COMMON.value, 'Deal 3 damage to target'
+        )
+        artifact = ArtifactCard(
+            "Mana Crystal",
+            2, RARITY.EPIC.value, 7, "Permanent +1 mana per turn"
+        )
+        game_state = {'mana': 10}
         deck = Deck()
         deck.add_card(creature)
         deck.add_card(spell)
