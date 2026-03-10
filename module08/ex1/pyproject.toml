@@ -1,0 +1,19 @@
+[project]
+name = "pyproject"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "bmarbouh", email = "bmarbouh@code.com"}
+]
+requires-python = ">=3.10"
+
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.26,<2.0",
+    "matplotlib>=3.7",
+    "requests>=2.31"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
