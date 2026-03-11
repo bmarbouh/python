@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import importlib
-
+import sys
 pkg = {
     "pandas": "Data manipulation ready",
     "requests": "Network access ready",
@@ -30,7 +30,7 @@ def check_lib() -> dict:
             missing.append(k)
     if missing:
         print(
-            "you need to instaall all packges using:\n"
+            "you need to install all packges using:\n"
             "pip install -r requirements.txt\n"
             "or\n"
             "poetry install\n"
@@ -64,3 +64,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    
+print(f"perfix: ------------------{sys.prefix}")
+print(f"base_perfix: ------------------{sys.base_prefix}")
