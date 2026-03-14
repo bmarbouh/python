@@ -44,11 +44,14 @@ class SpaceMission(BaseModel):
             experienced = sum(1 for m in self.crew if m.years_experience >= 5)
             if experienced / len(self.crew) < 0.5:
                 raise ValueError(
-                    "Long missions (> 365 days) need 50% experienced crew" " (5+ years)"
+                    "Long missions (> 365 days) need "
+                    "50% experienced crew" " (5+ years)"
                 )
         inactive = [m.name for m in self.crew if not m.is_active]
         if inactive:
-            raise ValueError(f"All crew members must be active. Inactive: {inactive}")
+            raise ValueError(
+                f"All crew members must be active. Inactive: {inactive}"
+                )
         return self
 
 
@@ -145,6 +148,7 @@ def main() -> None:
             crew=invalid_crew_list,
             budget_millions=2500.0,
         )
+        print(f"Mission: {invalid_mission.mission_name}")
     except ValidationError as v:
         print("Expected validation error:")
         for error in v.errors():
