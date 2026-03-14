@@ -13,15 +13,15 @@ class ContactType(Enum):
 
 
 class AlienContact(BaseModel):
-    contact_id: str = Field(min_length=5, max_length=15),
+    contact_id: str = Field(min_length=5, max_length=15)
     timestamp: datetime
-    location: str = Field(min_length=3, max_length=100),
+    location: str = Field(min_length=3, max_length=100)
     contact_type: ContactType
-    signal_strength: float = Field(ge=0, le=10),
-    duration_minutes: int = Field(ge=1, le=1440),
-    witness_count: int = Field(ge=1, le=100),
-    message_received: Optional[str] = Field(le=500),
-    is_verified: bool = Field(default=False),
+    signal_strength: float = Field(ge=0, le=10)
+    duration_minutes: int = Field(ge=1, le=1440)
+    witness_count: int = Field(ge=1, le=100)
+    message_received: Optional[str] = Field(max_length=500)
+    is_verified: bool = Field(default=False)
 
     @model_validator(mode="after")
     def validator(self) -> "AlienContact":
@@ -69,7 +69,7 @@ def main() -> None:
     except ValidationError as v:
         print("Expected validation error:")
         for error in v.errors:
-            print(error['msj'])
+            print(error['msg'])
     print("")
     print("=" * 40)
     try:
